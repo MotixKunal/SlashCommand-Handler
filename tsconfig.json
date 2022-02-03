@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "target": "ES3",
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+}
