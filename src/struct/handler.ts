@@ -3,7 +3,6 @@ import { REST } from '@discordjs/rest'
 import { Routes } from 'discord-api-types/v9';
 import { readdirSync } from 'fs';
 import { join } from 'path'
-import { green, red } from 'chalk';
 
 import { Config } from '../index';
 
@@ -22,7 +21,7 @@ export default class SlashCommandHandler {
 
     public async start(token: string) {
         if (!this.__registered) {
-            console.error(red('[ERROR]') + ' Please make sure you register a folder for your modules before doing this.'); 
+            console.error('[ERROR] Please make sure you register a folder for your modules before doing this.'); 
             console.error(' - If you have registered, make sure your file directory is valid.');
             return this;
         } 
@@ -42,7 +41,7 @@ export default class SlashCommandHandler {
                 var commandFile = require(join(folderPath, file)).default;
                 var data = commandFile.data;
             } catch {
-                console.error(red('[ERROR]') + ' Could not find data inside folder.');
+                console.error('[ERROR] Could not find data inside folder.');
             }
 
             if (data._isGlobal) {
@@ -54,7 +53,7 @@ export default class SlashCommandHandler {
 
             if (!config) return this;
             if (!config['guildID'])  {
-                console.error(red('[ERROR]') + ' Make sure you have a "guildID" attribute inside your config.');
+                console.error('[ERROR] Make sure you have a "guildID" attribute inside your config.');
             }
 
             this.guildCommands.push(data.toJSON());
@@ -77,7 +76,7 @@ export default class SlashCommandHandler {
                 }
             }
         }
-        return console.error(red('[ERROR]') + ' Could not find slashconfig.json file')
+        return console.error('[ERROR] Could not find slashconfig.json file')
     }
 
     private _getErrorEmbed(config: Config | void): string | MessageEmbed {
@@ -124,10 +123,10 @@ export default class SlashCommandHandler {
         const config = this._getconfig();        
 
         if (!config) return;
-        if (!config['clientID']) return console.error(red('[ERROR]') + ' Make sure you have a "clientID" attribute inside your config.')
+        if (!config['clientID']) return console.error('[ERROR] Make sure you have a "clientID" attribute inside your config.')
 
         try {
-            console.log(green('Started refreshing application (/) commands.'));
+            console.log('Started refreshing application (/) commands.');
 
             if (this.globalCommands.length > 0) await rest.put(
                 Routes.applicationCommands(config['clientID']),
@@ -139,7 +138,7 @@ export default class SlashCommandHandler {
                 { body: this.guildCommands },
             );
             
-            console.log(green('Successfully reloaded application (/) commands.'));
+            console.log('Successfully reloaded application (/) commands.');
         } catch (error) {
             console.error(error);
        }
