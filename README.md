@@ -1,6 +1,6 @@
 # SlashCommand-Handler
 
-**this is not finished just yet!**
+**this was created for V13 of Discord.JS**
 
 A Modern Discord.JS Slash Command Handler
 
